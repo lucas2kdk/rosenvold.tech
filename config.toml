@@ -62,3 +62,8 @@ paginate     = 10
     identifier = "blog"
     name = "Blog"
     url = "/posts"
+
+[[menu.categories]]
+    identifier = "categories"
+    name = "Categories"
+    url = "/categories"

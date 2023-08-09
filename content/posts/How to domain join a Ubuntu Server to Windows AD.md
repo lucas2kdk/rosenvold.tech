@@ -3,8 +3,8 @@ title: "How to Domain Join a Ubuntu 22.04 LTS Server to Active Directory"
 date: 2023-04-25
 author: "Lucas Christensen"
 categories:
-  - Windows Server
-  - Ubuntu Server
+  - Linux
+  - Server
 slug: "domain-join-ubuntu-22-04-lts-to-active-directory"
 type: "post"
 tags: ['ubuntu', 'server', 'linux']
