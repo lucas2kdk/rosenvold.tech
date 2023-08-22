@@ -39,15 +39,17 @@ en
 conf t
 boot system flash:<IOS file name>.bin
 ```
+
 This tells the equipment where to boot from. 
-```
+
+```console
 end
 wr
 reload
 ```
 6. Once the router has restarted, you should delete the old file: 
 
-```
+```console
 delete /recursive /force flash:<Old IOS name>.bin
 ```
 
