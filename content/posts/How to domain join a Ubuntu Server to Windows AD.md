@@ -10,19 +10,19 @@ type: "post"
 tags: ['ubuntu', 'server', 'linux']
 ---
 
-# Connecting a Linux Server to Windows Active Directory
+## Connecting a Linux Server to Windows Active Directory
 This guide will show you how to join an Ubuntu 22.04 LTS server to an existing Windows Active Directory domain.
 
-## Prerequisites
+### Prerequisites
 1. A functional Active Directory on the same network.
 2. Active Directory server added as DNS server.
 
-## Install WinBind
+### Install WinBind
 ```bash
 sudo apt -y install winbind libpam-winbind libnss-winbind krb5-config samba-dsdb-modules samba-vfs-modules
 ```
 
-## Configure Winbind
+### Configure Winbind
 Edit the `/etc/samba/smb.conf` file:
 ```bash
 sudo vim /etc/samba/smb.conf
@@ -83,12 +83,12 @@ Apply the network configuration changes:
 sudo netplan apply
 ```
 
-## Connect to Active Directory
+### Connect to Active Directory
 ```bash
 sudo net ads join -U Administrator
 ```
 
-## Test the Connection
+### Test the Connection
 To show a list of AD users:	
 
 ```bash
@@ -103,7 +103,7 @@ net ads info
 
 The output should show the AD server details and the domain information.
 
-## Troubleshooting
+### Troubleshooting
 If you encounter issues, consider the following:
 1. Can you ping the AD server?
 2. Are you using the AD server as the DNS server?
@@ -117,7 +117,7 @@ If you encounter issues, consider the following:
 
 These troubleshooting steps should help you resolve any issues you encounter when joining an Ubuntu 22.04 LTS server to an Active Directory domain.
 
-## References
+### References
 - [Ubuntu 20.04 LTS : Samba : Winbind : Server World](https://www.server-world.info/en/note?os=Ubuntu_20.04&p=samba&f=4)
 - [Ubuntu netplan documentation](https://netplan.io/examples)
 - [Microsoft Active Directory documentation](https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/get-started/virtual-dc/active-directory-domain-services-overview)
