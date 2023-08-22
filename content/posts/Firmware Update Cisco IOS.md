@@ -14,7 +14,7 @@ tags: ['Cisco', 'Networking', 'School']
 - Downloaded firmware files.
 - An empty USB drive formatted as FAT32.
 
-## Progress Process**
+## Let's get started
 - Place your IOS files at the root of the USB drive.
 - If the router is not already turned on, power it on.
 - Connect to the equipment using a console connection.
