@@ -10,10 +10,6 @@ type: "post"
 tags: ['Cisco', 'Networking', 'School']
 ---
 
-# How to Update Firmware on Cisco IOS Equipment
-
-Connect to the equipment using a console connection.
-
 ## Required Equipment
 - Downloaded firmware files.
 - An empty USB drive formatted as FAT32.
@@ -21,7 +17,8 @@ Connect to the equipment using a console connection.
 ## Progress Process**
 1. Place your IOS files at the root of the USB drive.
 2. If the router is not already turned on, power it on.
-3. Next, check the router's version by running the following command: 
+3. Connect to the equipment using a console connection.
+4. Next, check the router's version by running the following command: 
 
 ```console
 show version
