@@ -1,4 +1,4 @@
-baseURL = "https://example.com"
+baseURL = "https://rosenvold.tech"
 title   = "Rosenvold Technologies"
 languageCode = "en-us"
 theme = "hello-friend-ng"
