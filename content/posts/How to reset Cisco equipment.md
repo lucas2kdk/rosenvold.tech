@@ -10,9 +10,9 @@ type: "post"
 tags: ['Cisco', 'Networking', 'School']
 ---
 
-# Cisco 4221
+## Cisco 4221
 
-## Let's get started
+### Let's get started
 - If the router is not already turned on, power it on.
 - Connect to the equipment using a console connection.
 
