@@ -8,6 +8,7 @@ categories:
 slug: "domain-join-ubuntu-22-04-lts-to-active-directory"
 type: "post"
 tags: ['ubuntu', 'server', 'linux']
+series: ['Networking']
 ---
 
 ## Connecting a Linux Server to Windows Active Directory

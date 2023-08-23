@@ -2,12 +2,14 @@
 title: "How to firmware update cisco IOS over USB"
 date: 2023-08-22
 author: "Lucas Christensen"
+Description: "A little guide on updating firmware on Cisco Equipment from a USB Drive."
 categories:
   - Networking
   - Cisco
 slug: "how-to-firmware-update-cisco-usb"
 type: "post"
 tags: ['Cisco', 'Networking', 'School']
+series: ['Networking']
 ---
 
 ## Required Equipment
