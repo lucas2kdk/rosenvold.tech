@@ -106,15 +106,24 @@ The output should show the AD server details and the domain information.
 
 ### Troubleshooting
 If you encounter issues, consider the following:
+
 1. Can you ping the AD server?
+  
 2. Are you using the AD server as the DNS server?
+  
 3. Is the time on the Ubuntu server synchronized with the AD server's time?
+
 4. Verify that the Ubuntu server has a unique hostname on the network.
+
 5. Check the firewall on both the Ubuntu server and the AD server.
+
 6. Check the logs on the Ubuntu server for any errors related to Winbind or Samba.
+
 7. Verify that the DNS records for the AD server are correct and can be resolved from the Ubuntu server.
-8. Make sure that the Ubuntu server has a valid IP address configuration and can communicate with the AD server over the network.
-9. Check the permissions on the `/etc/krb5.keytab` file.
+
+8.  Make sure that the Ubuntu server has a valid IP address configuration and can communicate with the AD server over the network.
+
+9.  Check the permissions on the `/etc/krb5.keytab` file.
 
 These troubleshooting steps should help you resolve any issues you encounter when joining an Ubuntu 22.04 LTS server to an Active Directory domain.
 
