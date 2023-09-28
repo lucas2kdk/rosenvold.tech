@@ -42,9 +42,16 @@ You can install any Linux distribution available on the Windows Store directly f
 
 In a Powershell terminal, type:
 
-`wsl --list --online` to see all available distributions.
+``` powershell
+wsl --list --online
+``` 
 
-To install a distribution using its NAME, type: `wsl --install -d Ubuntu-22.04`
+to see all available distributions.
+
+To install a distribution using its NAME, type: 
+``` powershell
+wsl --install -d Ubuntu-22.04
+```
 
 To check all your installed distributions and their WSL versions, use: `wsl -l -v`
 ### Setting Up Ubuntu
