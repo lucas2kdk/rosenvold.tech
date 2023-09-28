@@ -1,5 +1,5 @@
 ---
-title: "How to Domain Join a Ubuntu 22.04 LTS Server to Active Directory"
+title: "A beginners guide to Ansible"
 date: 2023-09-28
 author: "Lucas Christensen"
 categories:
