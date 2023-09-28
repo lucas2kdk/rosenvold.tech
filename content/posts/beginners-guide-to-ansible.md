@@ -17,9 +17,6 @@ This guide is a work in progress, and will be written more to in the future.
   - [Windows](#windows)
   - [Linux](#linux)
     - [Ubuntu](#ubuntu)
-    - [Debian](#debian)
-    - [Arch Linux](#arch-linux)
-    - [Fedora](#fedora)
   - [macOS](#macos)
 
 ## Installation of Ansible
@@ -37,24 +34,7 @@ Ansible should be builtin to your favourite and default package manager. We need
 ``` bash
 sudo apt install update
 sudo apt install ansible sshpass
-```
-
-#### Debian
-``` bash
-sudo apt install update
-sudo apt install ansible sshpass
-```
-
-#### Arch Linux
-``` bash
-sudo pacman -Sy
-sudo pacman -S ansible sshpass
-```
-
-#### Fedora
-``` bash
-sudo dnf update
-sudo dnf install ansible sshpass
+sudo apt -y install python3-paramiko
 ```
 
 ### macOS
@@ -68,6 +48,11 @@ xcode-select --install
 To install ansible type the following command.
 ``` bash
 brew install ansible
+```
+
+To install paramiko, which is necessary to run Ansible.
+``` bash
+pip3 install paramiko
 ```
 
 Brew dosen't find sshpass secure so we have to install and add a repository for that manually.
