@@ -164,7 +164,7 @@ microk8s enable metallb
     
 2. Choose Your IP Range: After you type the command, MicroK8s will ask, "What IP’s should we use" You'll enter this range in a specific format, telling it the starting and ending IP addresses. For example:
     
-    ```
+    ``` bash
     10.0.0.10-10.0.0.100
     ```
     
