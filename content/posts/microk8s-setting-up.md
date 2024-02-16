@@ -12,6 +12,10 @@ tags: ['Kubernetes']
 series: ['Kubernetes']
 ---
 
+## Introductiont to MicroK8s
+Welcome to this comprehensive guide on configuring a cloud-native MicroK8s environment. MicroK8s is a lightweight Kubernetes distribution that simplifies the deployment and management of Kubernetes clusters. Its minimal resource requirements, ease of installation, and feature-rich package make it an ideal choice for developers, IoT environments, edge computing, and CI/CD pipelines. Whether you're new to Kubernetes or looking for an efficient deployment solution, MicroK8s offers a streamlined and flexible approach to running Kubernetes workloads.
+
+
 ## Before we begin
 I will actively try to maintain this guide, and expand it in the future. But the world within Kubernetes is changing at a rapid speed, so errors and mistakes may occur in this guide. 
 
@@ -20,21 +24,24 @@ This guide at the moment, includes 1 way to do install and get started. But as I
 For example observability with grafana, currently uses microk8s storage if setup with the builtin tools.
 
 ## Requirements
-- A server running Ubuntu 22.04 LTS.
-- A text editor, vim or nano is fine.
+Before we dive into the setup, ensure you have the following:
+
+- A server running Ubuntu 22.04 LTS: This version provides long-term support and compatibility with MicroK8s.
+- A text editor: vim or nano will suffice for editing configuration files.
+- Basic familiarity with the command-line interface and Kubernetes concepts will be beneficial.
 
 ## Let's get started
 
-Start by running the following command
+Let's kick off the installation of MicroK8s. Open your terminal and run:
 
 ``` bash
 sudo snap install microk8s --channel=1.29/stable --classic
 ```
 
-Congratulations! You've installed MicroK8s, let's get started by configuring it to be a more cloud native envionment.
+Congratulations on installing MicroK8s! Now, let's configure it for a more cloud-native environment.
 
 ### Setting up permissions
-To start with we will need to setup permissions for our user, in a production environment it's best pratice to require running as sudo. For security reasons.
+For security, it's crucial to set up proper permissions. In production environments, best practices require running commands as sudo. Execute the following to add your user to the MicroK8s group, and set up the Kubernetes configuration:
 
 ```
 sudo usermod -a -G microk8s $USER
@@ -42,27 +49,37 @@ sudo mkdir -p ~/.kube
 sudo chown -f -R $USER ~/.kube
 ```
 
-Now reboot the server or type the following command: ```newgrp microk8s```
+Now, either reboot your server or type `newgrp microk8s` to apply the group changes.
 
 ## Check the status
 
-MicroK8s has a built-in command to display its status. During installation you can use the --wait-ready flag to wait for Kubernetes to be up and running:
+To ensure MicroK8s is running smoothly, use the built-in command:
 
 ``` bash
 microk8s status --wait-ready
 ```
 
+## 
+Enhancing the Experience with Snap Aliases and k9s
+
+To streamline your workflow, consider creating snap aliases for common MicroK8s commands. This simplifies the command syntax and improves efficiency. For example, set an alias for kubectl and helm:
+
+
+``` bash
+sudo snap alias microk8s.kubectl kubectl
+sudo snap alias microk8s.helm helm
+```
+
 ## Setting up services
 
-### Ingress
+### Ingress Controller
 
-We need a ingress controller to access our services in a proper way. To enable an nginx-ingress type the following command:
-
+To access services efficiently, we'll enable an nginx-ingress controller:
 ```
 microk8s enable ingress
 ```
 
-### Longhorn
+### Storage with Longhorn
 
 Let's install longhorn using the following values, microk8s is a bit more specific since we are running in a snap package. This should do the job + some extra configurations.
 
