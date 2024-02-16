@@ -12,6 +12,24 @@ tags: ['Kubernetes']
 series: ['Kubernetes']
 ---
 
+- [Opening words](#opening-words)
+- [Installation of MicroK8s](#installation-of-microk8s)
+  - [Requirements](#requirements)
+  - [Installation](#installation)
+  - [Making MicroK8s easier to work with](#making-microk8s-easier-to-work-with)
+    - [Aliases](#aliases)
+    - [Setting up user permissions](#setting-up-user-permissions)
+- [Installation of services](#installation-of-services)
+  - [Ingress Controller](#ingress-controller)
+  - [Storage](#storage)
+    - [Longhorn](#longhorn)
+    - [**Installing Longhorn**](#installing-longhorn)
+  - [Networking](#networking)
+    - [MetalLB](#metallb)
+      - [**Background Info:**](#background-info)
+      - [**What is a LoadBalancer?**](#what-is-a-loadbalancer)
+      - [**Setting Up MetalLB:**](#setting-up-metallb)
+
 # Opening words
 
 Kubernetes is a constantly changing technology, therefore I will always recommend that if you encounter any errors, you refer to the official documentation.
@@ -123,17 +141,17 @@ Thanks to this article for providing me with the values for making it work.
 
 ### MetalLB
 
-### **Background Info:**
+#### **Background Info:**
 
 When you're running Kubernetes (a system that helps you manage your applications in the cloud) on your own computers (on-premise), it doesn't automatically come with a way to let the outside world talk to your services. This is where MetalLB comes in.
 
 Think of **MetalLB** as a friendly doorman who can direct visitors to various departments within a big office. In a cloud environment (like a massive corporate building), there's already a doorman service provided. But, when you're doing this on your own setup (like setting up an office in a home), you need to hire your own doorman, and that's MetalLB.
 
-### **What is a LoadBalancer?**
+#### **What is a LoadBalancer?**
 
 A **LoadBalancer** acts like a smart system that knows how to direct traffic from the internet to the right service in your Kubernetes setup. It's especially useful when you have multiple services that need to be accessible from the outside. In cloud environments, these LoadBalancers can use lots of different IP addresses to manage this traffic.
 
-### **Setting Up MetalLB:**
+#### **Setting Up MetalLB:**
 
 When you decide to set up MetalLB in your Kubernetes cluster running with MicroK8s (a lightweight version of Kubernetes), you're essentially adding this smart doorman to your setup. Here's how you do it in simple steps:
 
