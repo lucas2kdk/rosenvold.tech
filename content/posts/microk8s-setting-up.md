@@ -110,7 +110,7 @@ To properly expose our services we need to use MetalLB, since Kubernetes on-prem
 A LoadBalancer is mostly designed for cloud environments, due to it's use of multiple ip-addresses.
 
 ```
-microk8s enable ingress
+microk8s enable metallb
 ```
 
 You will be prompted for which IP-scope, you want to use. This can be entered like this. The subnets are , seperated, and the range is defined with a -
