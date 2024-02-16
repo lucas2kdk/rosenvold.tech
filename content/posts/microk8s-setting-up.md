@@ -1,5 +1,5 @@
 ---
-title: "How to configure a cloud native MicroK8s environment"
+title: "Kubernetes the last guide you'll ever need"
 date: 2024-02-16
 author: "Lucas Christensen"
 Description: "How to configure a cloud native MicroK8s environment"
@@ -12,133 +12,148 @@ tags: ['Kubernetes']
 series: ['Kubernetes']
 ---
 
-## Introductiont to MicroK8s
-Welcome to this comprehensive guide on configuring a cloud-native MicroK8s environment. MicroK8s is a lightweight Kubernetes distribution that simplifies the deployment and management of Kubernetes clusters. Its minimal resource requirements, ease of installation, and feature-rich package make it an ideal choice for developers, IoT environments, edge computing, and CI/CD pipelines. Whether you're new to Kubernetes or looking for an efficient deployment solution, MicroK8s offers a streamlined and flexible approach to running Kubernetes workloads.
+# Kubernetes the last guide you’ll ever need
 
+# Opening words
 
-## Before we begin
-I will actively try to maintain this guide, and expand it in the future. But the world within Kubernetes is changing at a rapid speed, so errors and mistakes may occur in this guide. 
+Kubernetes is a constantly changing technology, therefore I will always recommend that if you encounter any errors, you refer to the official documentation.
 
-This guide at the moment, includes 1 way to do install and get started. But as I learn there will come more and more services, available for installation and the installation ways may change too!
+I will try to actively maintain this guide with the information and knowledge I gather, but the information may become outdated in the future.
 
-For example observability with grafana, currently uses microk8s storage if setup with the builtin tools.
+At the moment, this guide provides a one-stop look at Kubernetes and how to set up a cloud-native environment.
+
+Just like building with Lego, there are a ton of different ways to set up your cluster and tailor it to your specific needs.
+
+# Installation of MicroK8s
+
+My preferred Kubernetes Distribution is currently MicroK8s, it’s used in production by multiple companies. And it’s quickly expanding and being improved upon.
+
+The installation is easy, and fast.
+
+MicroK8s is also a direct fork of the “vanilla” version of Kubernetes, and has a minimal footprint of changes.
 
 ## Requirements
-Before we dive into the setup, ensure you have the following:
 
-- A server running Ubuntu 22.04 LTS: This version provides long-term support and compatibility with MicroK8s.
-- A text editor: vim or nano will suffice for editing configuration files.
-- Basic familiarity with the command-line interface and Kubernetes concepts will be beneficial.
+- It is recommended to use a server running Ubuntu 22.04 LTS, as it is made by Canonical, the same company maintaining MicroK8s. However, MicroK8s can run on any Linux Distribution that is able to run a snap package.
 
-## Let's get started
+## Installation
 
-Let's kick off the installation of MicroK8s. Open your terminal and run:
+Let’s install MicroK8s on Linux, i will install version 1.29 since it’s the latest stable version when writing.
 
-``` bash
+```bash
 sudo snap install microk8s --channel=1.29/stable --classic
 ```
 
-Congratulations on installing MicroK8s! Now, let's configure it for a more cloud-native environment.
+That’s it! You now have successfully installed MicroK8s and have a Kubernetes cluster up and running.
 
-### Setting up permissions
-For security, it's crucial to set up proper permissions. In production environments, best practices require running commands as sudo. Execute the following to add your user to the MicroK8s group, and set up the Kubernetes configuration:
+Let’s wait check the status of our installation, and wait for MicroK8s to be fully up and running.
 
+```bash
+sudo microk8s status --wait-ready
 ```
+
+## Making MicroK8s easier to work with
+
+### Aliases
+
+By default we have to run Microk8s in front of every command, we can come around this by setting up aliases on our server.
+
+```bash
+sudo snap alias microk8s.kubectl kubectl
+sudo snap alias microk8s.helm helm
+```
+
+### Setting up user permissions
+
+Normal users do not have permission to interact with Microk8s directly unless they are part of the microk8s group.
+
+For security reasons, it is recommended to run Microk8s as sudo. This is also required for a proper CIS-compliant setup.
+
+```bash
 sudo usermod -a -G microk8s $USER
 sudo mkdir -p ~/.kube
 sudo chown -f -R $USER ~/.kube
 ```
 
-Now, either reboot your server or type `newgrp microk8s` to apply the group changes.
+# Installation of services
 
-## Check the status
+By default, MicroK8s does not come with many services. It only includes the essential components, which is beneficial as it allows us to select and utilize the packages and services we need. Additionally, this minimal setup ensures the cluster remains lightweight, making it suitable for running on IoT devices.
 
-To ensure MicroK8s is running smoothly, use the built-in command:
+## Ingress Controller
 
-``` bash
-microk8s status --wait-ready
+An **Ingress Controller** in Kubernetes is like a receptionist for your computer applications. Imagine you have a bunch of different services or apps inside your cloud setup (like different departments in a big company). When someone from the outside (like a visitor) wants to talk to one of these services, they go through the receptionist. The receptionist knows exactly where to send them based on what they ask for. This is what an Ingress Controller does—it directs incoming internet traffic to the right service inside your setup.
+
+So a proxy that can handle SSL, HTTP & HTTPS Traffic.
+
+We can enable an nginx ingress controller, within MicroK8s by running the following command.
+
+```bash
+sudo microk8s enable ingress
 ```
 
-## 
-Enhancing the Experience with Snap Aliases and k9s
+## Storage
 
-To streamline your workflow, consider creating snap aliases for common MicroK8s commands. This simplifies the command syntax and improves efficiency. For example, set an alias for kubectl and helm:
+### Longhorn
 
+**Before You Install Longhorn:**
 
-``` bash
-sudo snap alias microk8s.kubectl kubectl
-sudo snap alias microk8s.helm helm
+1. **Understand Longhorn:** Think of Longhorn as a way to create and manage extra storage spaces for your applications running in Kubernetes. It's like adding more hard drives to your cloud setup and making sure they're used efficiently.
+2. **Match Replica Counts to Nodes:** In Longhorn, "replicas" are copies of your data stored across different places for safety. You'll want to set the number of these copies to match the number of "nodes" (individual computers or servers) in your Kubernetes cluster to ensure your data is spread out evenly and safely.
+3. **Exposing Longhorn with a LoadBalancer:** If you want to access Longhorn from outside the cluster easily, you can use something called a LoadBalancer, which is like a public entrance to your storage. But, be careful—this means anyone can try to access it. To set this up, you'll need to install MetalLB, a tool that helps manage these public entrances.
+
+### **Installing Longhorn**
+
+Now, let's get to the actual steps to install Longhorn on your MicroK8s setup. Here's a simplified version of what you'll need to type into your terminal (a command-line tool where you type instructions to your computer):
+
+1. **Prepare Your Cluster:** Make sure your MicroK8s cluster is up and running. You might also need to enable some features that Longhorn requires. You can do this with commands in MicroK8s, but the specifics might vary.
+2. **Install MetalLB (If Needed):** If you decided you want that public entrance (LoadBalancer), you'll first install MetalLB. Please check the guide I’ve written for this below.
+3. **Install Longhorn:** You'll use a set of commands to tell MicroK8s to grab Longhorn and set it up with the configurations you want, like the number of replicas matching your nodes. The command will involve applying a configuration file or using a package manager tailored to Kubernetes, like Helm.
+
+Since we are installing MicroK8s it’s a bit special, so I’ve specified some extra values to allow longhorn to run properly within MicroK8s.
+
+```yaml
+helm install longhorn longhorn/longhorn --namespace longhorn-system --create-namespace \
+  --set defaultSettings.defaultDataPath="/longhorn" \
+  --set csi.kubeletRootDir="/var/snap/microk8s/common/var/lib/kubelet"
 ```
 
-## Setting up services
+Thanks to this article for providing me with the values for making it work.
 
-### Ingress Controller
+[](https://github.com/balchua/do-microk8s/blob/master/docs/longhorn.md)
 
-To access services efficiently, we'll enable an nginx-ingress controller:
-```
-microk8s enable ingress
-```
+## Networking
 
-### Storage with Longhorn
+### MetalLB
 
-Let's install longhorn using the following values, microk8s is a bit more specific since we are running in a snap package. This should do the job + some extra configurations.
+### **Background Info:**
 
-Please configure the replicacounts to match the amount of nodes in your cluster.
+When you're running Kubernetes (a system that helps you manage your applications in the cloud) on your own computers (on-premise), it doesn't automatically come with a way to let the outside world talk to your services. This is where MetalLB comes in.
 
-If you want to expose it with a LoadBalancer, you need to install metallb.
-Please do node, that everyone would be able to access the control panel for Longhorn.
+Think of **MetalLB** as a friendly doorman who can direct visitors to various departments within a big office. In a cloud environment (like a massive corporate building), there's already a doorman service provided. But, when you're doing this on your own setup (like setting up an office in a home), you need to hire your own doorman, and that's MetalLB.
 
-Type the following commands to get started installing:
+### **What is a LoadBalancer?**
 
-``` bash
-microk8s helm repo add longhorn https://charts.longhorn.io
-microk8s helm repo update
-```
+A **LoadBalancer** acts like a smart system that knows how to direct traffic from the internet to the right service in your Kubernetes setup. It's especially useful when you have multiple services that need to be accessible from the outside. In cloud environments, these LoadBalancers can use lots of different IP addresses to manage this traffic.
 
-Create a new file named `values.yaml` with the following contents:
+### **Setting Up MetalLB:**
 
-``` yaml
-defaultSettings:
-  defaultDataPath: "/longhorn"
-  replicaSoftAntiAffinity: "false"
-  replicaNodeSoftAntiAffinity: "false"
+When you decide to set up MetalLB in your Kubernetes cluster running with MicroK8s (a lightweight version of Kubernetes), you're essentially adding this smart doorman to your setup. Here's how you do it in simple steps:
 
-# Persistence settings
-persistence:
-  defaultClassReplicaCount: 1
-
-# Set the storage class to be the default
-storageClass:
-  isDefaultClass: true
-
-# UI service type
-service:
-  ui:
-    type: ClusterIP
-
-# Configuring the CSI driver with the correct kubelet root directory for MicroK8s
-csi:
-  kubeletRootDir: "/var/snap/microk8s/common/var/lib/kubelet"
-  attacherReplicaCount: 1 
-  provisionerReplicaCount: 1
-```
-
-Type the following command to install longhorn:
-
-``` bash
-microk8s helm install longhorn longhorn/longhorn --namespace longhorn-system --create-namespace -f values.yaml 
-```
-
-### Metallb
-To properly expose our services we need to use MetalLB, since Kubernetes on-premise dosen't come with a LoadBalancer builtin.
-
-A LoadBalancer is mostly designed for cloud environments, due to it's use of multiple ip-addresses.
-
-```
+1. **Enable MetalLB:** You start by telling MicroK8s, "Hey, let's hire that doorman." You do this by typing a command into your terminal (a place where you type instructions to your computer). The command looks like this:
 microk8s enable metallb
-```
-
-You will be prompted for which IP-scope, you want to use. This can be entered like this. The subnets are , seperated, and the range is defined with a -
-```
-10.0.0.10-10.0.0.100
-```
+    
+    ```bash
+    sudo microk8s enable metallb
+    ```
+    
+2. **Choose Your IP Range:** After you type the command, MicroK8s will ask, "What IP’s should we use" You'll enter this range in a specific format, telling it the starting and ending IP addresses. For example:
+    
+    ```
+    10.0.0.10-10.0.0.100
+    ```
+    
+3. If you want to use multiple subnets we can separate, the subnets with a comma. For example:
+    
+    ```yaml
+    10.0.0.10-10.0.0.100,192.168.1.10,192.168.1.100
+    ```
