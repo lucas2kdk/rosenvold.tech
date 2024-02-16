@@ -13,6 +13,15 @@ series: ['Kubernetes']
 ---
 
 - [Opening words](#opening-words)
+- [Kubernetes Cheat Sheet](#kubernetes-cheat-sheet)
+  - [Basic Concepts](#basic-concepts)
+  - [Common Commands](#common-commands)
+    - [kubectl Basics](#kubectl-basics)
+    - [Working with Pods](#working-with-pods)
+    - [Working with Deployments](#working-with-deployments)
+    - [Working with Services](#working-with-services)
+    - [Namespaces](#namespaces)
+  - [Resources](#resources)
 - [Installation of MicroK8s](#installation-of-microk8s)
   - [Requirements](#requirements)
   - [Installation](#installation)
@@ -39,6 +48,83 @@ I will try to actively maintain this guide with the information and knowledge I 
 At the moment, this guide provides a one-stop look at Kubernetes and how to set up a cloud-native environment.
 
 Just like building with Lego, there are a ton of different ways to set up your cluster and tailor it to your specific needs.
+
+# Kubernetes Cheat Sheet
+
+Kubernetes is an open-source platform for automating deployment, scaling, and operations of application containers across clusters of hosts.
+
+## Basic Concepts
+
+- **Pod**: Smallest deployable units that can be created, scheduled, and managed.
+- **Service**: An abstract way to expose an application running on a set of Pods as a network service.
+- **Deployment**: Describes the desired state for your application.
+- **Namespace**: Used to partition resources into logically named groups.
+
+## Common Commands
+
+### kubectl Basics
+
+- Get information about various resources:
+  - `kubectl get pods`
+  - `kubectl get services`
+  - `kubectl get deployments`
+  - `kubectl get namespaces`
+
+- Describe resource details:
+  - `kubectl describe pod <pod-name>`
+  - `kubectl describe service <service-name>`
+
+- Create or apply resources:
+  - `kubectl apply -f <filename.yaml>`
+
+- Delete resources:
+  - `kubectl delete -f <filename.yaml>`
+  - `kubectl delete pod <pod-name>`
+
+### Working with Pods
+
+- Create a pod:
+  - `kubectl run <pod-name> --image=<image-name>`
+
+- Get logs for a pod:
+  - `kubectl logs <pod-name>`
+
+- Executing commands in a pod:
+  - `kubectl exec -it <pod-name> -- <command>`
+
+### Working with Deployments
+
+- Create a deployment:
+  - `kubectl create deployment <deployment-name> --image=<image-name>`
+
+- Scale a deployment:
+  - `kubectl scale deployment <deployment-name> --replicas=<num>`
+
+- Update a deployment:
+  - `kubectl set image deployment/<deployment-name> <container-name>=<new-image>`
+
+### Working with Services
+
+- Expose a pod as a new Kubernetes service:
+  - `kubectl expose pod <pod-name> --port=<port> --name=<service-name>`
+
+- Expose a deployment as a service:
+  - `kubectl expose deployment <deployment-name> --port=<port> --type=<type>`
+
+### Namespaces
+
+- Create a namespace:
+  - `kubectl create namespace <namespace-name>`
+
+- List all namespaces:
+  - `kubectl get namespaces`
+
+- Run a pod in a specific namespace:
+  - `kubectl run <pod-name> --image=<image-name> --namespace=<namespace-name>`
+
+## Resources
+For more detailed information and advanced topics, refer to the [official Kubernetes documentation](https://kubernetes.io/docs/).
+
 
 # Installation of MicroK8s
 
