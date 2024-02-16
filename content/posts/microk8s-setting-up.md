@@ -21,6 +21,10 @@ series: ['Kubernetes']
     - [Working with Deployments](#working-with-deployments)
     - [Working with Services](#working-with-services)
     - [Namespaces](#namespaces)
+    - [Basic Helm Commands](#basic-helm-commands)
+      - [Repository Management](#repository-management)
+- [Helm Overview](#helm-overview)
+- [Key Concepts](#key-concepts)
 - [Kubernetes Base Concepts](#kubernetes-base-concepts)
   - [Services](#services)
   - [Deployments](#deployments)
@@ -136,6 +140,50 @@ Kubernetes is an open-source platform for automating deployment, scaling, and op
 
 - Run a pod in a specific namespace:
   - `kubectl run <pod-name> --image=<image-name> --namespace=<namespace-name>`
+
+### Basic Helm Commands
+
+- Search for charts in the Helm repository:
+  - `helm search repo [keyword]`
+
+- Install a chart:
+  - `helm install [release-name] [chart-name]`
+
+- List all releases:
+  - `helm list`
+
+- Upgrade a release:
+  - `helm upgrade [release-name] [chart-name]`
+
+- Rollback a release to a previous version:
+  - `helm rollback [release-name] [revision]`
+
+- Uninstall a release:
+  - `helm uninstall [release-name]`
+
+#### Repository Management
+
+- Add a Helm repository:
+  - `helm repo add [repo-name] [repo-url]`
+
+- Update information of available charts locally from chart repositories:
+  - `helm repo update`
+
+- List chart repositories:
+  - `helm repo list`
+
+- Remove a chart repository:
+  - `helm repo remove [repo-name]`
+
+# Helm Overview
+
+Helm is the package manager for Kubernetes. It allows developers and operators to easily package, configure, and deploy applications onto Kubernetes clusters. Helm uses a packaging format called charts. A chart is a collection of files that describe a related set of Kubernetes resources. Charts can be stored and shared across teams through chart repositories.
+
+# Key Concepts
+
+- **Chart**: A Helm package that contains all of the resource definitions necessary to run an application, tool, or service inside of a Kubernetes cluster.
+- **Repository**: A place where charts can be collected and shared.
+- **Release**: An instance of a chart running in a Kubernetes cluster. One chart can be installed multiple times into the same cluster, with each installation resulting in a new release.
 
 # Kubernetes Base Concepts
 
