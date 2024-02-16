@@ -21,20 +21,22 @@ series: ['Kubernetes']
     - [Working with Deployments](#working-with-deployments)
     - [Working with Services](#working-with-services)
     - [Namespaces](#namespaces)
-  - [Resources](#resources)
 - [Kubernetes Base Concepts](#kubernetes-base-concepts)
-- [Kubernetes Concepts Overview](#kubernetes-concepts-overview)
   - [Services](#services)
   - [Deployments](#deployments)
   - [StatefulSets](#statefulsets)
   - [ReplicaSets](#replicasets)
   - [Ingress](#ingress)
-- [Kubernetes Concepts Overview](#kubernetes-concepts-overview-1)
+- [Kubernetes Concepts Overview](#kubernetes-concepts-overview)
   - [Services](#services-1)
   - [Deployments](#deployments-1)
   - [StatefulSets](#statefulsets-1)
   - [ReplicaSets](#replicasets-1)
   - [Ingress](#ingress-1)
+- [Kubernetes learning resources](#kubernetes-learning-resources)
+  - [Videos](#videos)
+    - [IBM Kubernetes Videos](#ibm-kubernetes-videos)
+  - [Documentation](#documentation)
 - [Installation of MicroK8s](#installation-of-microk8s)
   - [Requirements](#requirements)
   - [Installation](#installation)
@@ -135,13 +137,8 @@ Kubernetes is an open-source platform for automating deployment, scaling, and op
 - Run a pod in a specific namespace:
   - `kubectl run <pod-name> --image=<image-name> --namespace=<namespace-name>`
 
-## Resources
-For more detailed information and advanced topics, refer to the [official Kubernetes documentation](https://kubernetes.io/docs/).
-
 # Kubernetes Base Concepts
 
-# Kubernetes Concepts Overview
-
 ## Services
 
 A Service in Kubernetes is an abstraction which defines a logical set of Pods and a policy by which to access them. Services enable network access to a set of Pods, providing a single point of access for a set of Pods.
@@ -239,6 +236,17 @@ Ingress manages external access to the services in a cluster, typically HTTP. In
   - Load balancing.
   - SSL termination.
   - Name-based virtual hosting.
+
+# Kubernetes learning resources
+
+## Videos
+
+### IBM Kubernetes Videos
+
+[IBM Has made a fantastic playlist with learning resources, and explaining the different Kubernetes concepts.]("https://www.youtube.com/watch?v=2vMEQ5zs1ko&list=PLOspHqNVtKABAVX4azqPIu6UfsPzSu2YN")
+
+## Documentation
+For more detailed information and advanced topics, refer to the [official Kubernetes documentation](https://kubernetes.io/docs/).
 
 # Installation of MicroK8s
 
