@@ -112,7 +112,9 @@ sudo microk8s enable ingress
 ### Longhorn
 
 Prerequities:
+
 The following services needs to be enabled:
+
 ```bash
 sudo microk8s enable ingress
 ```
