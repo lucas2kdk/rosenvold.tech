@@ -23,12 +23,12 @@ series: ['Kubernetes']
   - [Ingress Controller](#ingress-controller)
   - [Storage](#storage)
     - [Longhorn](#longhorn)
-    - [**Installing Longhorn**](#installing-longhorn)
+    - [Installing Longhorn](#installing-longhorn)
   - [Networking](#networking)
     - [MetalLB](#metallb)
-      - [**Background Info:**](#background-info)
-      - [**What is a LoadBalancer?**](#what-is-a-loadbalancer)
-      - [**Setting Up MetalLB:**](#setting-up-metallb)
+      - [Background Info](#background-info)
+      - [What is a LoadBalancer?](#what-is-a-loadbalancer)
+      - [Setting Up MetalLB](#setting-up-metallb)
 
 # Opening words
 
@@ -117,7 +117,7 @@ sudo microk8s enable ingress
 2. **Match Replica Counts to Nodes:** In Longhorn, "replicas" are copies of your data stored across different places for safety. You'll want to set the number of these copies to match the number of "nodes" (individual computers or servers) in your Kubernetes cluster to ensure your data is spread out evenly and safely.
 3. **Exposing Longhorn with a LoadBalancer:** If you want to access Longhorn from outside the cluster easily, you can use something called a LoadBalancer, which is like a public entrance to your storage. But, be careful—this means anyone can try to access it. To set this up, you'll need to install MetalLB, a tool that helps manage these public entrances.
 
-### **Installing Longhorn**
+### Installing Longhorn
 
 Now, let's get to the actual steps to install Longhorn on your MicroK8s setup. Here's a simplified version of what you'll need to type into your terminal (a command-line tool where you type instructions to your computer):
 
@@ -141,28 +141,28 @@ Thanks to this article for providing me with the values for making it work.
 
 ### MetalLB
 
-#### **Background Info:**
+#### Background Info
 
 When you're running Kubernetes (a system that helps you manage your applications in the cloud) on your own computers (on-premise), it doesn't automatically come with a way to let the outside world talk to your services. This is where MetalLB comes in.
 
 Think of **MetalLB** as a friendly doorman who can direct visitors to various departments within a big office. In a cloud environment (like a massive corporate building), there's already a doorman service provided. But, when you're doing this on your own setup (like setting up an office in a home), you need to hire your own doorman, and that's MetalLB.
 
-#### **What is a LoadBalancer?**
+#### What is a LoadBalancer?
 
-A **LoadBalancer** acts like a smart system that knows how to direct traffic from the internet to the right service in your Kubernetes setup. It's especially useful when you have multiple services that need to be accessible from the outside. In cloud environments, these LoadBalancers can use lots of different IP addresses to manage this traffic.
+A LoadBalancer acts like a smart system that knows how to direct traffic from the internet to the right service in your Kubernetes setup. It's especially useful when you have multiple services that need to be accessible from the outside. In cloud environments, these LoadBalancers can use lots of different IP addresses to manage this traffic.
 
-#### **Setting Up MetalLB:**
+#### Setting Up MetalLB
 
 When you decide to set up MetalLB in your Kubernetes cluster running with MicroK8s (a lightweight version of Kubernetes), you're essentially adding this smart doorman to your setup. Here's how you do it in simple steps:
 
-1. **Enable MetalLB:** You start by telling MicroK8s, "Hey, let's hire that doorman." You do this by typing a command into your terminal (a place where you type instructions to your computer). The command looks like this:
+1. Enable MetalLB: You start by telling MicroK8s, "Hey, let's hire that doorman." You do this by typing a command into your terminal (a place where you type instructions to your computer). The command looks like this:
 microk8s enable metallb
     
     ```bash
     sudo microk8s enable metallb
     ```
     
-2. **Choose Your IP Range:** After you type the command, MicroK8s will ask, "What IP’s should we use" You'll enter this range in a specific format, telling it the starting and ending IP addresses. For example:
+2. Choose Your IP Range: After you type the command, MicroK8s will ask, "What IP’s should we use" You'll enter this range in a specific format, telling it the starting and ending IP addresses. For example:
     
     ```
     10.0.0.10-10.0.0.100
