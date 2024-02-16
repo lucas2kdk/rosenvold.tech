@@ -63,6 +63,15 @@ Please configure the replicacounts to match the amount of nodes in your cluster.
 If you want to expose it with a LoadBalancer, you need to install metallb.
 Please do node, that everyone would be able to access the control panel for Longhorn.
 
+Type the following commands to get started installing:
+
+``` bash
+microk8s helm repo add longhorn https://charts.longhorn.io
+microk8s helm repo update
+```
+
+Create a new file named `values.yaml` with the following contents:
+
 ``` yaml
 defaultSettings:
   defaultDataPath: "/longhorn"
@@ -87,6 +96,12 @@ csi:
   kubeletRootDir: "/var/snap/microk8s/common/var/lib/kubelet"
   attacherReplicaCount: 1 
   provisionerReplicaCount: 1
+```
+
+Type the following command to install longhorn:
+
+``` bash
+microk8s helm install longhorn longhorn/longhorn --namespace longhorn-system --create-namespace -f values.yaml 
 ```
 
 ### Metallb
