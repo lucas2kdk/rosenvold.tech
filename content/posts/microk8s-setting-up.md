@@ -57,6 +57,14 @@ series: ['Kubernetes']
       - [Background Info](#background-info)
       - [What is a LoadBalancer?](#what-is-a-loadbalancer)
       - [Setting Up MetalLB](#setting-up-metallb)
+- [Working with Kubernetes](#working-with-kubernetes)
+  - [Getting MicroK8s Configuration](#getting-microk8s-configuration)
+    - [Export MicroK8s Configuration](#export-microk8s-configuration)
+    - [Verify Configuration](#verify-configuration)
+  - [Installing K9s](#installing-k9s)
+    - [Prerequisites](#prerequisites)
+    - [Installation Steps](#installation-steps)
+    - [Starting K9s](#starting-k9s)
 
 # Opening words
 
@@ -436,3 +444,57 @@ microk8s enable metallb
     ```yaml
     10.0.0.10-10.0.0.100,192.168.1.10,192.168.1.100
     ```
+
+# Working with Kubernetes
+
+## Getting MicroK8s Configuration
+
+MicroK8s uses its own `kubeconfig` file, which you'll need to export to use `kubectl` or other Kubernetes tools. Here's how you can get the MicroK8s configuration and set it in the correct place.
+
+### Export MicroK8s Configuration
+
+To access the Kubernetes cluster managed by MicroK8s using `kubectl`, you need to export the MicroK8s kubeconfig file:
+
+```bash
+microk8s config > ~/.kube/config
+```
+
+### Verify Configuration
+Verify that kubectl is now configured to use the MicroK8s cluster by running:
+
+```bash
+kubectl get nodes
+```
+
+## Installing K9s
+
+K9s provides a terminal UI to interact with your Kubernetes clusters, making it easier to manage and observe Kubernetes resources. It allows you to view logs, manage pods, deployments, and more, all from within your terminal.
+
+### Prerequisites
+
+- A configured Kubernetes cluster.
+- `kubectl` installed and configured to connect to your cluster.
+
+### Installation Steps
+
+1. **Download the K9s Binary**
+
+   K9s is available for Windows, Linux, and macOS. You can download the latest version of K9s from its GitHub releases page: `https://github.com/derailed/k9s/releases`
+
+2. **Linux Installation**
+
+   - After downloading, extract the archive.
+   - Move the `k9s` binary to a directory in your `PATH`. For example, you can move it to `/usr/local/bin` with the following command:
+     ```bash
+     sudo mv k9s /usr/local/bin
+     ```
+
+3. **Verify Installation**
+
+   Run the following command in your terminal to verify that K9s has been installed successfully:
+   ```bash
+   k9s version
+
+### Starting K9s
+
+Simply run `k9s` in your terminal. K9s will use your kubeconfig file (typically found at `~/.kube/config`) to connect to your Kubernetes cluster.
