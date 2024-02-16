@@ -494,6 +494,7 @@ K9s provides a terminal UI to interact with your Kubernetes clusters, making it 
    Run the following command in your terminal to verify that K9s has been installed successfully:
    ```bash
    k9s version
+   ```
 
 ### Starting K9s
 
