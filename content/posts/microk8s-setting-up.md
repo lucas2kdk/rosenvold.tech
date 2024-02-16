@@ -12,8 +12,16 @@ tags: ['Kubernetes']
 series: ['Kubernetes']
 ---
 
+# Before we begin
+I will actively try to maintain this guide, and expand it in the future. But the world within Kubernetes is changing at a rapid speed, so errors and mistakes may occur in this guide. 
+
+This guide at the moment, includes 1 way to do install and get started. But as I learn there will come more and more services, available for installation and the installation ways may change too!
+
+For example observability with grafana, currently uses microk8s storage if setup with the builtin tools.
+
 ## Requirements
-- A server running Ubuntu 22.04 LTS
+- A server running Ubuntu 22.04 LTS.
+- A text editor, vim or nano is fine.
 
 ## Let's get started
 
