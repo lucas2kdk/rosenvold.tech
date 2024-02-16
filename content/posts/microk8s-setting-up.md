@@ -746,15 +746,3 @@ $ kubectl edit deployment/my-nginx
 ```
 
 That's it! The Deployment will declaratively update the deployed nginx application progressively behind the scene. It ensures that only a certain number of old replicas may be down while they are being updated, and only a certain number of new replicas may be created above the desired number of pods. To learn more details about it, visit [Deployment page](/docs/concepts/workloads/controllers/deployment/).
-
-{{% /capture %}}
-
-{{% capture whatsnext %}}
-
-- [Learn about how to use `kubectl` for application introspection and debugging.](/docs/tasks/debug-application-cluster/debug-application-introspection/)
-- [Configuration Best Practices and Tips](/docs/concepts/configuration/overview/)
-
-{{% /capture %}}
-
-
-
