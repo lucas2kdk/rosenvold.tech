@@ -1,6 +1,6 @@
 ---
 title: "How to configure a cloud native MicroK8s environment"
-date: 2023-08-22
+date: 2024-02-16
 author: "Lucas Christensen"
 Description: "How to configure a cloud native MicroK8s environment"
 categories:
