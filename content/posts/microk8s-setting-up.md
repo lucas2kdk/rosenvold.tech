@@ -111,6 +111,12 @@ sudo microk8s enable ingress
 
 ### Longhorn
 
+Prerequities:
+The following services needs to be enabled:
+```bash
+sudo microk8s enable ingress
+```
+
 Before You Install Longhorn:
 
 1. Understand Longhorn: Think of Longhorn as a way to create and manage extra storage spaces for your applications running in Kubernetes. It's like adding more hard drives to your cloud setup and making sure they're used efficiently.
