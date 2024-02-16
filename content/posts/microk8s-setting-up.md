@@ -12,8 +12,6 @@ tags: ['Kubernetes']
 series: ['Kubernetes']
 ---
 
-# Kubernetes the last guide you’ll ever need
-
 # Opening words
 
 Kubernetes is a constantly changing technology, therefore I will always recommend that if you encounter any errors, you refer to the official documentation.
