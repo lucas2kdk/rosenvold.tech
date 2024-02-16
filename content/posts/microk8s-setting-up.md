@@ -22,6 +22,19 @@ series: ['Kubernetes']
     - [Working with Services](#working-with-services)
     - [Namespaces](#namespaces)
   - [Resources](#resources)
+- [Kubernetes Base Concepts](#kubernetes-base-concepts)
+- [Kubernetes Concepts Overview](#kubernetes-concepts-overview)
+  - [Services](#services)
+  - [Deployments](#deployments)
+  - [StatefulSets](#statefulsets)
+  - [ReplicaSets](#replicasets)
+  - [Ingress](#ingress)
+- [Kubernetes Concepts Overview](#kubernetes-concepts-overview-1)
+  - [Services](#services-1)
+  - [Deployments](#deployments-1)
+  - [StatefulSets](#statefulsets-1)
+  - [ReplicaSets](#replicasets-1)
+  - [Ingress](#ingress-1)
 - [Installation of MicroK8s](#installation-of-microk8s)
   - [Requirements](#requirements)
   - [Installation](#installation)
@@ -55,10 +68,10 @@ Kubernetes is an open-source platform for automating deployment, scaling, and op
 
 ## Basic Concepts
 
-- **Pod**: Smallest deployable units that can be created, scheduled, and managed.
-- **Service**: An abstract way to expose an application running on a set of Pods as a network service.
-- **Deployment**: Describes the desired state for your application.
-- **Namespace**: Used to partition resources into logically named groups.
+- Pod: Smallest deployable units that can be created, scheduled, and managed.
+- Service: An abstract way to expose an application running on a set of Pods as a network service.
+- Deployment: Describes the desired state for your application.
+- Namespace: Used to partition resources into logically named groups.
 
 ## Common Commands
 
@@ -125,6 +138,107 @@ Kubernetes is an open-source platform for automating deployment, scaling, and op
 ## Resources
 For more detailed information and advanced topics, refer to the [official Kubernetes documentation](https://kubernetes.io/docs/).
 
+# Kubernetes Base Concepts
+
+# Kubernetes Concepts Overview
+
+## Services
+
+A Service in Kubernetes is an abstraction which defines a logical set of Pods and a policy by which to access them. Services enable network access to a set of Pods, providing a single point of access for a set of Pods.
+
+- Types of Services:
+  - `ClusterIP`: Exposes the Service on an internal IP in the cluster. Only reachable within the cluster.
+  - `NodePort`: Exposes the Service on each Node's IP at a static port. Accessible from outside the cluster.
+  - `LoadBalancer`: Exposes the Service externally using a cloud provider's load balancer.
+  - `ExternalName`: Maps the Service to the contents of the `externalName` field, returning a CNAME record with its value.
+
+## Deployments
+
+Deployments manage the deployment and scaling of a set of Pods, and provide declarative updates to Pods along with other useful features.
+
+- Use Cases:
+  - Create Deployments to roll out ReplicaSets and Pods.
+  - Update Deployments to roll out new Docker images or configurations.
+  - Rollback to an earlier Deployment revision.
+  - Scale up Deployments to handle more load.
+  - Pause Deployments to apply fixes.
+
+## StatefulSets
+
+StatefulSets are suited for applications that require stable, unique network identifiers, stable, persistent storage, ordered, graceful deployment and scaling, and ordered, automated rolling updates.
+
+- Key Features:
+  - Stable, unique network identifiers.
+  - Stable, persistent storage.
+  - Ordered, graceful deployment and scaling.
+  - Ordered, automated rolling updates.
+
+## ReplicaSets
+
+A ReplicaSet ensures that a specified number of pod replicas are running at any given time. It's recommended to use Deployments instead of directly using ReplicaSets unless you require custom update orchestration.
+
+- Use Cases:
+  - Ensure a specified number of pod replicas are running.
+  - Use in conjunction with Deployments for updates.
+
+## Ingress
+
+Ingress manages external access to the services in a cluster, typically HTTP. Ingress can provide load balancing, SSL termination, and name-based virtual hosting.
+
+- Key Features:
+  - Load balancing.
+  - SSL termination.
+  - Name-based virtual hosting.
+
+# Kubernetes Concepts Overview
+
+## Services
+
+A Service in Kubernetes is an abstraction which defines a logical set of Pods and a policy by which to access them. Services enable network access to a set of Pods, providing a single point of access for a set of Pods.
+
+- Types of Services:
+  - `ClusterIP`: Exposes the Service on an internal IP in the cluster. Only reachable within the cluster.
+  - `NodePort`: Exposes the Service on each Node's IP at a static port. Accessible from outside the cluster.
+  - `LoadBalancer`: Exposes the Service externally using a cloud provider's load balancer.
+  - `ExternalName`: Maps the Service to the contents of the `externalName` field, returning a CNAME record with its value.
+
+## Deployments
+
+Deployments manage the deployment and scaling of a set of Pods, and provide declarative updates to Pods along with other useful features.
+
+- Use Cases:
+  - Create Deployments to roll out ReplicaSets and Pods.
+  - Update Deployments to roll out new Docker images or configurations.
+  - Rollback to an earlier Deployment revision.
+  - Scale up Deployments to handle more load.
+  - Pause Deployments to apply fixes.
+
+## StatefulSets
+
+StatefulSets are suited for applications that require stable, unique network identifiers, stable, persistent storage, ordered, graceful deployment and scaling, and ordered, automated rolling updates.
+
+- Key Features:
+  - Stable, unique network identifiers.
+  - Stable, persistent storage.
+  - Ordered, graceful deployment and scaling.
+  - Ordered, automated rolling updates.
+
+## ReplicaSets
+
+A ReplicaSet ensures that a specified number of pod replicas are running at any given time. It's recommended to use Deployments instead of directly using ReplicaSets unless you require custom update orchestration.
+
+- Use Cases:
+  - Ensure a specified number of pod replicas are running.
+  - Use in conjunction with Deployments for updates.
+
+## Ingress
+
+Ingress manages external access to the services in a cluster, typically HTTP. Ingress can provide load balancing, SSL termination, and name-based virtual hosting.
+
+- Key Features:
+  - Load balancing.
+  - SSL termination.
+  - Name-based virtual hosting.
 
 # Installation of MicroK8s
 
