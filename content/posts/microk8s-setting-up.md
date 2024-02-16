@@ -133,9 +133,8 @@ helm install longhorn longhorn/longhorn --namespace longhorn-system --create-nam
   --set csi.kubeletRootDir="/var/snap/microk8s/common/var/lib/kubelet"
 ```
 
-Thanks to this article for providing me with the values for making it work.
+Thanks to this [article](https://github.com/balchua/do-microk8s/blob/master/docs/longhorn.md) for providing the values for making it work.
 
-[](https://github.com/balchua/do-microk8s/blob/master/docs/longhorn.md)
 
 ## Networking
 
