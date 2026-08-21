@@ -47,11 +47,11 @@ Client-side, no dependencies, no search library.
 3. `layouts/partials/search.html` renders the header panel, its CSS, and the matcher. Rendered on every page via `header.html`. The index is fetched on **first open**, not page load.
 4. Matching is a lowercase substring AND across whitespace-split terms. Fine at six posts; marked with a `ponytail:` comment where it would need replacing.
 
-## Content trap: `type: "post"`
+## Filter posts by Section, not Type
 
-Five of the six posts set `type: "post"` in front matter, which **overrides the section**. So `where .Site.RegularPages "Type" "posts"` matches only `talos-setting-up.md` (the one that omits it).
+Five of the six posts used to set `type: "post"` in front matter, which **overrides the section** — so `where .Site.RegularPages "Type" "posts"` matched only the one post that omitted it. The front matter is gone now (removing it moved no permalinks; verified by diffing built URLs), but `layouts/index.html` and `layouts/index.searchindex.json` still filter on `Section` deliberately. Keep it that way; `Type` is only as reliable as every post's front matter.
 
-**Filter posts by `Section`, never `Type`.** Both `layouts/index.html` and `layouts/index.searchindex.json` do. The front matter serves no purpose (there is no `layouts/post/`) and is a candidate for deletion.
+Note `content/posts/domainjoin-windowsad-ubuntuserver.md` has **CRLF line endings**, so `sed` patterns anchored with `$` silently skip it.
 
 ## Dark mode only
 
@@ -95,4 +95,6 @@ Cloudflare does **not** read `.tool-versions`; only specific files like `.node-v
 
 ## Config notes
 
-`config.toml` declares CC BY-NC 4.0 in `copyright`, but it is displayed nowhere (`footer.copyright = false`, RSS disabled). It reads as a license grant; the user has been told and hasn't decided yet.
+Content is licensed **CC BY 4.0** — reuse with attribution, commercial included. Set in the top-level `copyright` key (rendered in the footer via `.Site.Copyright`, enabled by `footer.copyright = true`) and mirrored in the per-language param. The theme's exampleSite ships a CC BY-NC string; this repo deliberately does not use it.
+
+Footer copyright reads `2023–{{ now.Year }}`. 2023 is the first post and first commit; only the end year moves.
