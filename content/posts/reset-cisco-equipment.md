@@ -6,7 +6,6 @@ categories:
   - Networking
   - Cisco
 slug: "reset-cisco-equipment"
-type: "post"
 tags: ['Cisco', 'Networking', 'School']
 series: ['Networking']
 ---

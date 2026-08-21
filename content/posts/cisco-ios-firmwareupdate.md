@@ -7,7 +7,6 @@ categories:
   - Networking
   - Cisco
 slug: "how-to-firmware-update-cisco-usb"
-type: "post"
 tags: ['Cisco', 'Networking', 'School']
 series: ['Networking']
 ---

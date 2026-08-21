@@ -6,7 +6,6 @@ categories:
   - Linux
   - Windows
 slug: installation-of-wsl
-type: post
 tags:
   - ubuntu
   - windows

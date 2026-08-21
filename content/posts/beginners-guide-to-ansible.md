@@ -6,7 +6,6 @@ categories:
   - Linux
   - Server
 slug: "ansible-for-dummies"
-type: "post"
 tags: ['linux']
 series: ['Networking']
 ---
