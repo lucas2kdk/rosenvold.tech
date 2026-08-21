@@ -81,20 +81,17 @@ The search matcher is asserted by loading `/index.json` in `node` and re-running
 - Deploy is **Cloudflare Pages**, configured in its dashboard, not in the repo. Pushing to `main` publishes.
 - `resources/_gen/` is gitignored, but two files there were committed before that and remain tracked.
 
-## Deploy: pin the Hugo version
+## Deploy: Cloudflare Pages build image
 
-Cloudflare Pages' legacy build image installs **Hugo 0.54.0 (2019)** when no version is pinned. The current theme cannot build on it — the failure surfaces as a misleading i18n error:
+Deploys need **build system version 3** plus `HUGO_VERSION`. Both. Either alone fails:
 
-```
-Error: ".../themes/hello-friend-ng/i18n/zh-cn.toml:1:1": failed to load translations:
-unable to parse translation #5 because invalid plural category newerPosts
-```
+- **v1** (default) installs Hugo 0.54.0 (2019), which cannot parse the current theme's i18n files. Surfaces as a misleading `zh-cn.toml ... invalid plural category newerPosts` error — not a theme or content bug, just 2019 Hugo meeting a 2025 theme.
+- **v1 and v2 are both Ubuntu 20.04.5 (glibc 2.31).** Extended Hugo 0.165 needs GLIBC 2.34 and GLIBCXX 3.4.29, so pinning a modern `HUGO_VERSION` on either image dies with `libc.so.6: version GLIBC_2.33 not found`. v2 is not a fix.
+- **v3 is Ubuntu 22.04.2** and runs it. Its own default Hugo is 0.147.7, which is new enough for this theme even unpinned.
 
-That is not a theme bug or a content bug. It is Hugo 0.54 meeting a 2025 theme.
+Dashboard: Workers & Pages → the project → Deployments → All deployments → latest version, to change build system version. `HUGO_VERSION` is set under the project's environment variables and works in v3.
 
-The fix lives in the Cloudflare dashboard, **not in this repo**: Settings → Builds & deployments → Environment variables → `HUGO_VERSION = 0.165.0`. Bumping Build system version to 2 also helps, since its default Hugo is modern.
-
-`.tool-versions` pins `hugo 0.165.0` for build image v2, which reads it. **The legacy v1 image ignores it**, so it is a safety net for later, not the fix — do not treat its presence as the version being pinned.
+Cloudflare does **not** read `.tool-versions`; only specific files like `.node-version` and `.ruby-version`. There is no way to pin Hugo from inside this repo — it is dashboard-only.
 
 ## Config notes
 
