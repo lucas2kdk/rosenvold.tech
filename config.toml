@@ -36,7 +36,7 @@ disableHugoGeneratorInject = false
 [permalinks]
   posts = "/posts/:year/:month/:title/"
 
-[author]
+[params.author]
   name = "Lucas Seidelin Rosenvold Christensen"
 
 [blackfriday]
@@ -80,7 +80,7 @@ disableHugoGeneratorInject = false
   # Per default, this option is off. 
   # The theme is respecting the prefers-color-scheme of the operating systeme. 
   # With this option on, the page user is able to set the scheme he wants. 
-  enableThemeToggle = true
+  enableThemeToggle = false
 
   # Sharing buttons
   #
@@ -94,7 +94,7 @@ disableHugoGeneratorInject = false
   #
   # Enables the global language menu.
   #
-  enableGlobalLanguageMenu = true
+  enableGlobalLanguageMenu = false
 
   # Integrate Javascript files or stylesheets by adding the url to the external assets or by
   # linking local files with their path relative to the static folder, e.g. "css/styles.css"
@@ -206,3 +206,13 @@ disableHugoGeneratorInject = false
     identifier = "categories"
     name       = "Categories"
     url        = "categories/"
+
+# Search index for the filter box on /posts/. Its own format, not "json",
+# so the theme does not emit a broken feed.json alternate link.
+[outputFormats.SearchIndex]
+  mediaType   = "application/json"
+  baseName    = "index"
+  isPlainText = true
+
+[outputs]
+  home = ["HTML", "SearchIndex"]

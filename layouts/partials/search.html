@@ -1,0 +1,90 @@
+<div class="search-panel" id="search-panel" hidden>
+    <div class="search-panel__inner">
+        <label class="search-field">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="search" id="search-input" aria-label="Search posts" placeholder="Search posts…" autocomplete="off" />
+        </label>
+        <ul class="search-results" id="search-results"></ul>
+        <p class="search-empty" id="search-empty" hidden>No matches.</p>
+    </div>
+</div>
+
+<style>
+.search-toggle { display: flex; align-items: center; cursor: pointer; margin: 0 15px; opacity: .75; }
+.search-toggle:hover { opacity: 1; }
+
+.search-panel { padding: 12px 20px; text-align: left; background: rgba(0, 0, 0, .08); }
+.search-panel__inner { width: 760px; max-width: 100%; margin: 0 auto; }
+
+.search-field { display: flex; align-items: center; gap: 10px; padding: 0 14px;
+    background: rgba(127, 127, 127, .13); border: 1px solid transparent; border-radius: 6px; }
+.search-field:focus-within { border-color: rgba(127, 127, 127, .45); }
+.search-field svg { flex: none; opacity: .5; }
+.search-field input { flex: 1; min-width: 0; padding: 10px 0; font: inherit; color: inherit;
+    background: none; border: none; outline: none; }
+.search-field input::placeholder { color: inherit; opacity: .45; }
+.search-field input::-webkit-search-cancel-button { filter: invert(.5); }
+
+.search-results { list-style: none; margin: 8px 0 0; padding: 0; }
+.search-results a { display: flex; justify-content: space-between; align-items: baseline; gap: 20px;
+    padding: 8px 14px; border-radius: 6px; text-decoration: none; }
+.search-results a:hover { background: rgba(127, 127, 127, .13); }
+.search-date { flex: none; opacity: .55; font-size: .85em; }
+.search-empty { margin: 10px 14px 0; opacity: .55; }
+
+@media (max-width: 684px) {
+    .search-toggle { margin: 0 10px; }
+    .logo__text { font-size: 1rem; }
+    .search-panel { padding: 12px 15px; }
+    .search-results a { gap: 12px; padding: 8px 10px; }
+}
+</style>
+
+<script>
+// ponytail: substring scan over the whole index; swap in a real matcher if the post count ever hurts
+(() => {
+    const toggle = document.querySelector('.search-toggle');
+    const panel = document.getElementById('search-panel');
+    const input = document.getElementById('search-input');
+    const list = document.getElementById('search-results');
+    const empty = document.getElementById('search-empty');
+    let pages, haystacks;
+
+    const render = () => {
+        const terms = input.value.toLowerCase().split(/\s+/).filter(Boolean);
+        const hits = terms.length && pages ? pages.filter((_, i) => terms.every(t => haystacks[i].includes(t))) : [];
+        list.innerHTML = hits.map(p =>
+            `<li><a href="${p.url}"><span>${p.title}</span><span class="search-date">${p.date}</span></a></li>`
+        ).join('');
+        empty.hidden = !terms.length || hits.length > 0;
+    };
+
+    const open = async () => {
+        panel.hidden = false;
+        toggle.setAttribute('aria-expanded', 'true');
+        input.focus();
+        if (!pages) {  // index fetched on first open, not on every page load
+            pages = await (await fetch('{{ "index.json" | relURL }}')).json();
+            haystacks = pages.map(p => [p.title, p.body, (p.tags || []).join(' ')].join(' ').toLowerCase());
+            render();
+        }
+    };
+
+    const close = () => {
+        panel.hidden = true;
+        toggle.setAttribute('aria-expanded', 'false');
+        input.value = '';
+        render();
+    };
+
+    const flip = () => panel.hidden ? open() : close();
+    toggle.addEventListener('click', flip);
+    toggle.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flip(); }
+    });
+    input.addEventListener('input', render);
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && !panel.hidden) { close(); toggle.focus(); }
+    });
+})();
+</script>
