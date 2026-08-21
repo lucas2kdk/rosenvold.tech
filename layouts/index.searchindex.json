@@ -1,4 +1,4 @@
-{{- $pages := where .Site.RegularPages "Type" "!=" "page" -}}
+{{- $pages := where .Site.RegularPages "Section" "posts" -}}
 {{- $index := slice -}}
 {{- range $pages -}}
   {{- $index = $index | append (dict "title" .Title "url" .RelPermalink "date" (.Date.Format .Site.Params.dateformNum) "tags" .Params.tags "body" (.Plain | truncate 12000 "")) -}}
