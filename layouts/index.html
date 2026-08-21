@@ -1,0 +1,43 @@
+{{ define "body" }}
+    <body class="{{ if .Site.Params.backgroundImage }} background-image" style="background-image: url('{{ .Site.Params.backgroundImage }}');" {{ else }}"{{ end }}>
+{{ end }}
+
+{{ define "main" }}
+    <div class="content-center">
+        <main>
+            <div>
+                {{ if .Site.Params.Portrait.Path }}
+                <img src="{{ .Site.Params.Portrait.Path }}" class="circle" alt="{{ .Site.Params.Portrait.Alt }}" style="max-width:{{ .Site.Params.Portrait.MaxWidth }}" />
+                {{ end }}
+
+                <h1>{{ .Site.Title }}</h1>
+
+                {{ partial "subtitle.html" . }}
+
+                {{- with .Site.Params.social }}
+                    <div>
+                        {{ partial "social-icons.html" . }}
+                    </div>
+                {{- end }}
+            </div>
+
+            {{ with first 5 (where .Site.RegularPages "Section" "posts") }}
+                <div class="posts">
+                    <div class="posts-group">
+                        <ul class="posts-list">
+                            {{ range . }}
+                                <li class="post-item">
+                                    <a href="{{ .Permalink }}" class="post-item-inner">
+                                        <span class="post-title">{{ .Title }}</span>
+                                        <span class="post-day">{{ time.Format .Site.Params.dateform .Date }}</span>
+                                    </a>
+                                </li>
+                            {{ end }}
+                        </ul>
+                    </div>
+                    <div style="text-align: right"><a href="{{ "posts/" | relLangURL }}">All posts &rarr;</a></div>
+                </div>
+            {{ end }}
+        </main>
+    </div>
+{{ end }}
